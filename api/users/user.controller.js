@@ -8,6 +8,8 @@ const {
 } = require("./user.service");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
+var mysqldb = require('../../utils/mysqldb');
+
 
 module.exports = {
   createUser: (req, res) => {

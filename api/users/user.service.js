@@ -1,7 +1,7 @@
 const pool = require("../../config/database");
 
 module.exports = {
-  create: (data, callBack) => {
+  create: async (data, callBack) => {
     console.log(data);
     const sql = `insert into my_project.registration(firstName, lastName, gender, email, password, number) 
     values(?,?,?,?,?,?)`;
@@ -13,7 +13,7 @@ module.exports = {
       data.password,
       data.number
     ];
-    pool.query(sql, params,
+   await pool.query(sql, params,
       (error, results, fields) => {
         if (error) {
           callBack(error);
@@ -22,8 +22,8 @@ module.exports = {
       }
     );
   },
-  getUserByUserEmail: (email, callBack) => {
-    pool.query(
+  getUserByUserEmail: async (email, callBack) => {
+   await pool.query(
       `select * from registration where email = ?`,
       [email],
       (error, results, fields) => {
@@ -34,8 +34,8 @@ module.exports = {
       }
     );
   },
-  getUserByUserId: (id, callBack) => {
-    pool.query(
+  getUserByUserId: async (id, callBack) => {
+    await pool.query(
       `select id,firstName,lastName,gender,email,number from registration where id = ?`,
       [id],
       (error, results, fields) => {
